@@ -27,9 +27,12 @@ pipeline {
             }
         }
         stage('docker') {
-            withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
-            sh "./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=gowthamatr/docker201"
+        	steps {
+            	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
+            	sh "./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=gowthamatr/docker201"
+        		}
         	}
         }
     }
+}
 }
