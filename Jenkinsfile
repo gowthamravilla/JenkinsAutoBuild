@@ -24,6 +24,7 @@ pipeline {
         		}
         	}
         }
+        
         stage('DockerPush') {
         	steps {
             	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
