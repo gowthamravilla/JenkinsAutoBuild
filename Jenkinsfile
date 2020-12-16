@@ -27,7 +27,7 @@ pipeline {
         stage('DockerPush') {
         	steps {
             	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
-                sh "echo '9704605380ganna' | sudo -S docker login -u gowthamatr -p 9704605380ganna"
+                sh "echo '01e73269339fc8b587f4a8cb15cb32ab552de0eb' | sudo -S docker login -u gowthamatr -p 9704605380ganna"
             	sh "sudo docker push gowthamatr/docker201"
         		}
         	}
