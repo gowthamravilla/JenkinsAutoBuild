@@ -27,6 +27,7 @@ pipeline {
         stage('docker') {
         	steps {
             	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
+                sh "export DOCKER_HOST='/var/run/docker.sock'"
             	sh "mvn spring-boot:build-image -Dspring-boot.build-image.imageName=gowthamatr/docker201"
         		}
         	}
