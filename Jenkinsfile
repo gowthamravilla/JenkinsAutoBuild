@@ -16,16 +16,19 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
-        stage('docker') {
+        stage('DockerBuild') {
         	steps {
             	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
                 sh "export DOCKER_HOST='/var/run/docker.sock'"
             	sh "mvn spring-boot:build-image -Dspring-boot.build-image.imageName=gowthamatr/docker201"
+        		}
+        	}
+        }
+        stage('DockerPush') {
+        	steps {
+            	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
+                sh "sudo docker login -u $usernameVariable -p $passwordVariable"
+            	sh "sudo docker push $usernameVariable/docker201"
         		}
         	}
         }
