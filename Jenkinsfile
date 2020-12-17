@@ -55,6 +55,6 @@ pipeline {
     }
 }
 def hostIp(container) {
-    sh "docker inspect ${container.id} | grep \\"IPAddress\\" > hostIp"
+    sh 'docker inspect ${container.id} | grep "IPAddress" > hostIp'
     readFile('hostIp').trim()
 }
