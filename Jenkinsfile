@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        USER_CREDENTIALS = credentials('USER_PASSWORD')
+    }
     stages {
         stage('Build') {
             steps {
@@ -18,18 +21,16 @@ pipeline {
         }
         stage('DockerBuild') {
         	steps {
-            	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
                 sh "export DOCKER_HOST='/var/run/docker.sock'"
             	sh "mvn spring-boot:build-image -Dspring-boot.build-image.imageName=gowthamatr/docker201"
-        		}
         	}
         }
         
         stage('DockerPush') {
         	steps {
-            	withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: '9704605380ganna', usernameVariable: 'gowthamatr')]) {
-                sh "echo '01e73269339fc8b587f4a8cb15cb32ab552de0eb' | sudo -S docker login -u gowthamatr -p 9704605380ganna"
-            	sh "sudo docker push gowthamatr/docker201"
+                def dockerImage = docker.image("gowthamatr/docker201")
+                docker.withRegistry('https://registry.hub.docker.com', 'docker') {
+                    dockerImage.push()
         		}
         	}
         }
