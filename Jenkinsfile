@@ -27,10 +27,14 @@ pipeline {
         }
         
         stage('DockerPush') {
+            steps{
+                script{
                 def dockerImage = docker.image("gowthamatr/docker201")
                 docker.withRegistry('https://registry.hub.docker.com', 'docker') {
                     dockerImage.push()
-        		}
+        		    }
+                }
+            }
         }
     }
 }
