@@ -46,8 +46,8 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script{
-                        docker.image('gowthamatr/docker201').withRun('-p 8080:80') {c ->
-                        sh "curl -i http://${hostIp(c)}:8080/"
+                        docker.image('gowthamatr/docker201').withRun('-p 9191:9191') {c ->
+                        sh "curl -i http://${hostIp(c)}:9191/"
                      }
                 }
             }
