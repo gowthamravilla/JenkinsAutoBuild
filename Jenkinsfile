@@ -46,15 +46,11 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script{
-                        docker.image('gowthamatr/docker201').withRun('-p 9191:9191') {c ->
-                        sh "curl -i http://${hostIp(c)}:9191/"
+                        docker.image('gowthamatr/docker201').withRun('-p 9191:8080') {c ->
+                        sh "echo ${c.id}"
                      }
                 }
             }
         }
     }
-}
-def hostIp(container) {
-    sh 'docker inspect ${container.id} | grep "IPAddress" > hostIp'
-    readFile('hostIp').trim()
 }
