@@ -46,9 +46,7 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script{
-                        docker.image('gowthamatr/docker201').withRun('-p 9191:8080') {c ->
-                        sh "echo ${c.id}"
-                     }
+                        docker.image('gowthamatr/docker201').run('-p 9191:8080')
                 }
             }
         }
